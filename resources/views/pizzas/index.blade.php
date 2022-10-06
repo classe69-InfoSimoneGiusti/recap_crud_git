@@ -7,7 +7,10 @@
 
     <ul>
         @foreach($pizzas as $pizza)
-            <li>{{$pizza->name}}</li>
+            <li>
+                <span>{{$pizza->name}}</span>
+                <a href="{{route('pizzas.show', ['pizza' => $pizza->id])}}">Vedi</a>
+            </li>
         @endforeach
     </ul>
 @endsection
