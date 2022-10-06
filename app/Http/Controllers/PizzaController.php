@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Pizza;
 
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PizzaController extends Controller
 {
@@ -37,6 +38,14 @@ class PizzaController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+           "name" => "required|max:50",
+           "price" => "required|numeric|max:99.99|min:0",
+           "size" => ['required', Rule::in(['normale', 'familiare','baby'])],
+           "url" => "nullable|url|max:255",
+           "description" => "nullable|max:65535",
+        ]);
+
         $data = $request->all();
         $newPizza = new Pizza();
         $newPizza->fill($data);
